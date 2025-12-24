@@ -36,22 +36,6 @@ gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools
 2. Configure OpenGL for WSL
 WSL drivers (Mesa) often default to a strictly compliant Core Profile that may reject OpenFrameworks' window initialization. We need to force a Compatibility Profile.
 
-Option A: Permanent Fix (Recommended) Add the configuration to your bash profile so it applies every time you open the terminal.
-
-```Bash
-
-echo 'export MESA_GL_VERSION_OVERRIDE=3.3COMPAT' >> ~/.bashrc
-echo 'export MESA_GLSL_VERSION_OVERRIDE=330' >> ~/.bashrc
-source ~/.bashrc
-```
-
-Option B: Temporary Fix Run this before executing the program every time:
-
-```Bash
-
-export MESA_GL_VERSION_OVERRIDE=3.3COMPAT
-```
-
 🚀 Compilation & Running
 Navigate to the project directory:
 
@@ -59,7 +43,7 @@ Navigate to the project directory:
 
 cd /path/to/apps/myApps/WaterColor
 ```
-Compile the project:
+Compile & execute the project:
 
 ```Bash
 
@@ -85,14 +69,8 @@ cd bin
     - Click and drag on the canvas to add "water/pigment" manually (if feature enabled).
 
 🔧 Troubleshooting
-Q: The window does not open (Process finishes immediately).
-A: This is likely an OpenGL profile mismatch in WSL. Ensure you have set the environment variable MESA_GL_VERSION_OVERRIDE=3.3COMPAT as described in the Setup section. Also, ensure your main.cpp uses ofSetupOpenGL(1024, 768, OF_WINDOW); instead of ofGLFWWindowSettings.
 
-Q: The video plays but shows only noise or colors are wrong.
-A: You are missing the GStreamer bad/ugly plugins. Refer to Step 1 in the Setup section to install gstreamer1.0-plugins-ugly and gstreamer1.0-libav. Reboot your terminal after installation.
-
-Q: The video is still black after installing codecs.
-A: Linux video decoding can be finicky. As a fallback, convert your video to Photo-JPEG (MOV) or Image Sequence using ffmpeg:
+WSL decoding can be weird at times. As a fallback, convert your video to Photo-JPEG (MOV) or Image Sequence using ffmpeg:
 
 ``` Bash
 
